@@ -1,4 +1,3 @@
-# this is an abstract class for the num.py and sym.py
 from sym import SYM
 from num import NUM
 
