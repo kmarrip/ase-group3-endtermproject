@@ -1,0 +1,6 @@
+1. This took 399.31673884391785 time --> wine
+2. This took 281.47839307785034 time --> ss-a 
+3. This took 74.61213397979736 time  --> dtlz
+4. This took 57.17540097236633 time  --> poma3
+5. Estimated time for each iteration was around 4 seconds, 1e4 iterations would take 
+around 11.11 hours

@@ -48,25 +48,30 @@ def run(filePath, n: int):
     y = df.iloc[:, n:]  # the last 2 are depended variables
     # we need to calculate the distance to heaven for each of the rows
     # and add to
-    y = getDistance2HeavenArray(y)
 
+    y = getDistance2HeavenArray(y)
+    
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
     accuracyDF = pd.DataFrame()
     accuracyDF["c"] = ""
     accuracyDF["e"] = ""
     accuracyDF["error"] = ""
-
+    
+    start = time.time()
     for c in range(1, 100):
         for e in range(1, 100):
-            print(f"{c} {e}")
-            start = time.time()
+            some_start = time.time()
+            print(f"hyper params are {c} and {e}")
             accuracyDF.loc[len(accuracyDF.index)] = [
                 c/1000,
                 e/1000,
                 runHyper(c, e, x_train, x_test, y_train, y_test),
             ]
-            end = time.time()
-            print(f"this took {end - start} time")
+            some_end = time.time()
+            print(f" iteration took {some_end - some_start}")
+    
+    end = time.time()
+    print(f"This took {end - start} time ")
     print(accuracyDF.head(100))
 
     fig = plt.figure(figsize=(7, 7))
@@ -76,10 +81,7 @@ def run(filePath, n: int):
 
 
 # grid search
-run("../data/wine.csv", 10)
-# run("../data/SS-A.csv", 3)
-# run("../data/dtlz2.csv", 10)
-
+run("../data/xomo_flight.csv",27)
 # random search
 space = dict()
 space["c"] = list(map(lambda x: x / 100, range(100)))
