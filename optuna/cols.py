@@ -4,7 +4,7 @@ from num import NUM
 
 class COLS:
     def __init__(self, txt: str):
-        self.txt = txt
+        self.txt = txt.strip()
         if self.txt[0].isupper():
             self.col = NUM()
         else:

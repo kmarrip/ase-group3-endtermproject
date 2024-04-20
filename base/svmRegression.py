@@ -81,6 +81,9 @@ def run(filePath, n: int):
 
 
 # grid search
+run('../data/wine.csv',10)
+run('../data/SS-A.csv',3)
+run('../data/dtlz2.csv',10)
 run("../data/xomo_flight.csv",27)
 # random search
 space = dict()

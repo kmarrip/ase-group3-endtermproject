@@ -1,6 +1,17 @@
+grid search
+
 1. This took 399.31673884391785 time --> wine
 2. This took 281.47839307785034 time --> ss-a 
 3. This took 74.61213397979736 time  --> dtlz
 4. This took 57.17540097236633 time  --> poma3
 5. Estimated time for each iteration was around 4 seconds, 1e4 iterations would take 
 around 11.11 hours --> xomoflight 
+
+optuna
+For the dataset ../data/xomo_flight.csv,best mean squared error is 0.05295158622744168, best hyperparmas {'c': 0.0757307261440278, 'e': 0.004343963726227385}
+For the dataset ../data/wine.csv,best mean squared error is 0.05466622418347502, best hyperparmas {'c': 0.06468241885586626, 'e': 0.0029143198535367155}
+For the dataset ../data/SS-A.csv,best mean squared error is 0.060942764788814136, best hyperparmas {'c': 0.08448089493121924, 'e': 0.007427720618308908}
+For the dataset ../data/dtlz2.csv,best mean squared error is 0.006078157153972657, best hyperparmas {'c': 0.09159708439418313, 'e': 1.0116087765700094e-05}
+For the dataset ../data/pom3a.csv,best mean squared error is 0.09997925845390089, best hyperparmas {'c': 0.05373336561309574, 'e': 0.0547084151437647}
+[25.043132066726685, 74.51646590232849, 50.723698139190674, 45.20788788795471, 15.502763986587524]
+

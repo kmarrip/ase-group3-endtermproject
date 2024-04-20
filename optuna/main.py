@@ -5,7 +5,7 @@ from sklearn import svm
 from sklearn.metrics import mean_absolute_error
 import math
 from cols import COLS
-
+import time
 
 def runHyper(c, e, x_train, x_test, y_train, y_test):
     regressor = svm.SVR(C=c, epsilon=e)
@@ -63,6 +63,26 @@ def runOptuna(n:int, path:str, iters = 100):
     trial = study.best_trial
     print(f"For the dataset {path},best mean squared error is {trial.value}, best hyperparmas {trial.params}")
 
+timings = []
+
+start = time.time()
+runOptuna(27,'../data/xomo_flight.csv',10)
+timings.append(time.time() - start)
+
+start = time.time()
 runOptuna(10,'../data/wine.csv',1000)
+timings.append(time.time()-start)
+
+start = time.time()
 runOptuna(3,'../data/SS-A.csv',1000)
+timings.append(time.time()- start)
+
+start= time.time()
 runOptuna(10,'../data/dtlz2.csv',1000)
+timings.append(time.time() - start)
+
+start = time.time()
+runOptuna(10,'../data/pom3a.csv',1000)
+timings.append(time.time() - start)
+
+print(timings)
