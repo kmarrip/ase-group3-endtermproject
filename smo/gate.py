@@ -1,11 +1,37 @@
 from utils import egs,the,cli
 from data import DATA
 import math
+from cols import COLS
+import math
 import os
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 
+def getDistance2HeavenArray(y):
+    columns = y.columns.values
+    cols = []
+    for colName in columns:
+        cols.append(COLS(colName))
+    for i in range(len(cols)):
+        cols[i].add(list(y.iloc[:, i]))
+    for col in cols:
+        col.values = col.getNormalValues()
+
+    for col in cols:
+        squared = []
+        for x in col.values:
+            squared.append((col.heaven - x) ** 2)
+        col.values = squared
+    d2h = []
+    n = len(cols[0].values)
+    nmCols = len(cols)
+    for i in range(n):
+        temp = 0
+        for c in range(len(cols)):
+            temp += cols[c].values[i]
+        d2h.append(temp)
+    return list(map(lambda x: math.sqrt(x / nmCols), d2h))
 
 def main():
     saved_options = {}
@@ -36,8 +62,6 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-    file_name = "Wine_quality"
 
     params = pd.read_csv(f'data/{file_name}_mse.csv')
     paramsX = params.drop(columns=["mse"])
