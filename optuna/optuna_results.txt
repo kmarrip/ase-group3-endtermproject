@@ -1,0 +1,37 @@
+time took is 63.32486009597778
+For the dataset ../data/SS-C.csv,best mean squared error is 0.07743958032516432, best hyperparmas {'c': 0.08487100844731436, 'e': 0.009102562190511991}
+
+time took is 11.33121109008789
+For the dataset ../data/SS-H.csv,best mean squared error is 0.023229566847082814, best hyperparmas {'c': 0.06599935301527289, 'e': 0.011709737540669238}
+
+time took is 12.596859216690063
+For the dataset ../data/auto93.csv,best mean squared error is 0.033971708563465895, best hyperparmas {'c': 0.09204618995701053, 'e': 0.03706260511401672}
+
+time took is 16.63821291923523
+For the dataset ../data/pom3a.csv,best mean squared error is 0.06925279330363772, best hyperparmas {'c': 0.08060951710678448, 'e': 0.06921911522459936}
+
+time took is 77.31662201881409
+For the dataset ../data/wine.csv,best mean squared error is 0.053731203660446904, best hyperparmas {'c': 0.09995903661653177, 'e': 0.0033882456492085634}
+
+time took is 53.90191411972046
+For the dataset ../data/SS-A.csv,best mean squared error is 0.05983550776444171, best hyperparmas {'c': 0.08375396848146706, 'e': 0.003181029325960377}
+
+time took is 47.549341917037964
+For the dataset ../data/dtlz2.csv,best mean squared error is 0.0062668916728459015, best hyperparmas {'c': 0.0883793431643488, 'e': 3.923255601999019e-05}
+
+time took is 33.1849639415741
+For the dataset ../data/dtlz3.csv,best mean squared error is 0.06080411750034502, best hyperparmas {'c': 0.05046462234651095, 'e': 0.05566474737449605}
+
+time took is 45.408122062683105
+For the dataset ../data/dtlz4.csv,best mean squared error is 0.006935895639874015, best hyperparmas {'c': 0.09084230940388195, 'e': 8.028554969480121e-05}
+
+time took is 45.625282764434814
+For the dataset ../data/dtlz5.csv,best mean squared error is 0.006190560817439774, best hyperparmas {'c': 0.09999653776109148, 'e': 0.003021397892495954}
+
+time took is 40.65734791755676
+For the dataset ../data/dtlz6.csv,best mean squared error is 0.0024411132529422517, best hyperparmas {'c': 0.08730453817161493, 'e': 1.4343642537978818e-05}
+
+time took is 44.87209701538086
+For the dataset ../data/dtlz7.csv,best mean squared error is 0.012343213587386286, best hyperparmas {'c': 0.09254945098029942, 'e': 0.0033204514657786443}
+
+

@@ -1,3 +1,7 @@
+best MSE is 0.08630069449577334, for c=0.076, e=0.044 ../data/SS-C.csv This took 739.1370439529419 seconds
+best MSE is 0.04984510277906454, for c=0.099, e=0.001 ../data/SS-H.csv This took 25.708542823791504 seconds
+best MSE is 0.047806171295753715, for c=0.095, e=0.010 ../data/auto93.csv This took 48.050621032714844 seconds
+best MSE is 0.08067535148882014, for c=0.099, e=0.065 ../data/pom3a.csv This took 111.75751781463623 seconds
 best MSE is 0.06393033641676549, for c=0.096, e=0.001 ../data/wine.csv This took 770.7887029647827 seconds
 best MSE is 0.07328043389731982, for c=0.099, e=0.004 ../data/SS-A.csv This took 567.8475618362427 seconds
 best MSE is 0.007848808146851903, for c=0.099, e=0.001 ../data/dtlz2.csv This took 142.93333888053894 seconds
@@ -6,7 +10,3 @@ best MSE is 0.010032619839817378, for c=0.099, e=0.001 ../data/dtlz4.csv This to
 best MSE is 0.00800608679593196, for c=0.099, e=0.001 ../data/dtlz5.csv This took 150.03135681152344 seconds
 best MSE is 0.0035391997217658015, for c=0.036, e=0.001 ../data/dtlz6.csv This took 49.23720693588257 seconds
 best MSE is 0.013527905806526535, for c=0.099, e=0.006 ../data/dtlz7.csv This took 197.51528692245483 seconds
-best MSE is 0.08067535148882014, for c=0.099, e=0.065 ../data/pom3a.csv This took 111.75751781463623 seconds
-best MSE is 0.047806171295753715, for c=0.095, e=0.010 ../data/auto93.csv This took 48.050621032714844 seconds
-best MSE is 0.08630069449577334, for c=0.076, e=0.044 ../data/SS-C.csv This took 739.1370439529419 seconds
-best MSE is 0.04984510277906454, for c=0.099, e=0.001 ../data/SS-H.csv This took 25.708542823791504 seconds
