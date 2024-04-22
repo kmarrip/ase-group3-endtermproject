@@ -1,9 +1,19 @@
 from cols import COLS
 from rows import ROW
 from utils import csv
-import pandas as pd
 import random
+from sklearn import svm
+from sklearn.metrics import mean_absolute_error
+from sklearn.model_selection import train_test_split
 
+
+def runHyper(c, e, x_train, x_test, y_train, y_test):
+    c = float(c / 1000)
+    e = float(e / 1000)
+    regressor = svm.SVR(C=c, epsilon=e)
+    regressor.fit(x_train, y_train)
+    predicted = regressor.predict(x_test)
+    return mean_absolute_error(y_test, predicted)
 
 class DATA:
     def __init__(self, src, fun=None):
@@ -51,17 +61,21 @@ class DATA:
         return random.sample(items, len(items))
 
     def get_mse_value(self, row):
-        mse_value = self.mse_data.loc[
-            (self.mse_data["n_estimators"] == row.cells[0])
-            & (self.mse_data["max_depth"] == row.cells[1]),
-            "mse",
-        ].values[0]
-        return mse_value
+        c = row.cells[0]
+        e = row.cells[1]
 
-    def gate(self, budget0, budget, some, file_name):
-        self.mse_data = pd.read_csv(f"data/{file_name}_mse.csv")
+        x_train, x_test, y_train, y_test = train_test_split(self.x, self.y, test_size=0.2)
+        mse = runHyper(c,e,x_train,x_test,y_train,y_test)
+        row.cells[2] = mse
+        return mse 
 
+    def gate(self, budget0, budget, some, data1,x,y):
+        self.mse_data  = data1
+        self.x = x
+        self.y = y
+        #self.mse_data = pd.read_csv(f"data/{file_name}_mse.csv")
         rows = self.shuffle(self.rows)
+        print(len(rows))
         lite = rows[:budget0]
         dark = rows[budget0:]
 
@@ -76,6 +90,7 @@ class DATA:
 
     def split(self, best, rest, lite, dark):
         max_score = float("-inf")
+        todo = 0
 
         best_data = DATA(self.cols.names)
         for row in best:

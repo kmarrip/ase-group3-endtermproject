@@ -9,7 +9,6 @@ class COLS:
         if self.txt[0].isupper():
             self.col = NUM()
         else:
-            print(txt)
             self.col = SYM()
         self.heaven = 1 if self.txt.endswith("+") else 0
 
