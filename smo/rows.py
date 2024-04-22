@@ -1,5 +1,6 @@
 import math
-from utils import the 
+from utils import the
+
 
 class ROW:
     def __init__(self, cells):

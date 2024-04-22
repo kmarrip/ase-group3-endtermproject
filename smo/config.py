@@ -1,6 +1,6 @@
 the = {}
 
-help = '''USAGE: python main.py [OPTIONS]
+help = """USAGE: python main.py [OPTIONS]
    OPTIONS:
    -c --cohen small effect size = .35
    -f --file csv data file name = ../data/auto93.csv
@@ -9,7 +9,7 @@ help = '''USAGE: python main.py [OPTIONS]
    -m --m low attribute frequency kludge = 2
    -s --seed random number seed = 31210
    -t --todo start up action = help
-   '''
+   """
 egs = {}
 
 Seed = 42

@@ -74,30 +74,20 @@ if __name__ == '__main__':
     data1 = pd.read_csv(f"data/{file_name}.csv")
 
     for col in data1.columns:
-        if col.endswith("+") or col.endswith("-"):
+        if col.endswith("+"): 
             data1[col] = (data1[col] - data1[col].min()) / (
                 data1[col].max() - data1[col].min()
             )
             data1[col] = 1 - data1[col]
-        elif col.endswith("-"):
+        if col.endswith("-"):
             data1[col] = (data1[col] - data1[col].min()) / (
                 data1[col].max() - data1[col].min()
             )
+            data1[col] = 0-data1[col]
 
     data1["d2h"] = None
-
-    calculate_distance = lambda row: round(
-        math.sqrt(
-            sum(
-                (row[col] ** 2)
-                for col in data1.columns
-                if col.endswith("+") or col.endswith("-")
-            )
-            / sum(1 for col in data1.columns if col.endswith("+") or col.endswith("-"))
-        ),
-        3,
-    )
-    data1['d2h'] = data1.apply(calculate_distance, axis=1)
+    calDistance = lambda row: math.sqrt(sum((row[col] ** 2 for col in data1.columns if col.endswith('+') or col.endswith('-'))))
+    data1['d2h'] = data1.apply(calDistance,axis=1)
 
     cols = list(data1.columns)
 

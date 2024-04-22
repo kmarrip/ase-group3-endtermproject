@@ -8,15 +8,15 @@ from cols import COLS
 import time
 from os import system, name
 
+
 def clear():
- 
     # for windows
-    if name == 'nt':
-        _ = system('cls')
- 
+    if name == "nt":
+        _ = system("cls")
+
     # for mac and linux(here, os.name is 'posix')
     else:
-        _ = system('clear')
+        _ = system("clear")
 
 
 def runHyper(c, e, x_train, x_test, y_train, y_test):
@@ -52,8 +52,8 @@ def getDistance2HeavenArray(y):
     return list(map(lambda x: math.sqrt(x / nmCols), d2h))
 
 
-def runOptuna(n:int, path:str, iters = 1000):
-    #optuna.logging.set_verbosity(optuna.logging.ERROR)
+def runOptuna(n: int, path: str, iters=1000):
+    # optuna.logging.set_verbosity(optuna.logging.ERROR)
     def objective(trial):
         df = pd.read_csv(path)
         x = df.iloc[:, 0:n].values
@@ -68,30 +68,30 @@ def runOptuna(n:int, path:str, iters = 1000):
         meanError = runHyper(c, e, x_train, x_test, y_train, y_test)
         return meanError
 
-
     study = optuna.create_study(direction="minimize")
     start = time.time()
     study.optimize(objective, n_trials=iters)
-    end = time.time() 
+    end = time.time()
 
-    
     trial = study.best_trial
 
     clear()
     print(f"time took is {end - start}")
-    print(f"For the dataset {path},best mean squared error is {trial.value}, best hyperparmas {trial.params}")
-    delee = input('enter to continue')
+    print(
+        f"For the dataset {path},best mean squared error is {trial.value}, best hyperparmas {trial.params}"
+    )
+    delee = input("enter to continue")
 
 
-runOptuna(3,'../data/SS-C.csv')
-runOptuna(4,'../data/SS-H.csv')
-runOptuna(5,'../data/auto93.csv')
-runOptuna(9,'../data/pom3a.csv')
-runOptuna(10,'../data/wine.csv')
-runOptuna(3,'../data/SS-A.csv')
-runOptuna(10,'../data/dtlz2.csv')
-runOptuna(10,'../data/dtlz3.csv')
-runOptuna(10,'../data/dtlz4.csv')
-runOptuna(10,'../data/dtlz5.csv')
-runOptuna(10,'../data/dtlz6.csv')
-runOptuna(10,'../data/dtlz7.csv')
+runOptuna(3, "../data/SS-C.csv")
+runOptuna(4, "../data/SS-H.csv")
+runOptuna(5, "../data/auto93.csv")
+runOptuna(9, "../data/pom3a.csv")
+runOptuna(10, "../data/wine.csv")
+runOptuna(3, "../data/SS-A.csv")
+runOptuna(10, "../data/dtlz2.csv")
+runOptuna(10, "../data/dtlz3.csv")
+runOptuna(10, "../data/dtlz4.csv")
+runOptuna(10, "../data/dtlz5.csv")
+runOptuna(10, "../data/dtlz6.csv")
+runOptuna(10, "../data/dtlz7.csv")

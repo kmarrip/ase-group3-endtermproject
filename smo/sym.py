@@ -12,7 +12,7 @@ class SYM:
         self.most = 0
 
     def add(self, x):
-        if x == '?':
+        if x == "?":
             return
         self.n += 1
         self.has[x] = 1 + self.has.get(x, 0)
@@ -32,4 +32,4 @@ class SYM:
         return 0
 
     def like(self, x, prior):
-        return ((self.has.get(x, 0) or 0) + the['m'] * prior) / (self.n + the['m'])
+        return ((self.has.get(x, 0) or 0) + the["m"] * prior) / (self.n + the["m"])

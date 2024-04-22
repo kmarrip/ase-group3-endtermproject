@@ -52,14 +52,13 @@ class DATA:
 
     def get_mse_value(self, row):
         mse_value = self.mse_data.loc[
-            (self.mse_data['n_estimators'] == row.cells[0])
-            & (self.mse_data['max_depth'] == row.cells[1]),
-            'mse',
+            (self.mse_data["n_estimators"] == row.cells[0])
+            & (self.mse_data["max_depth"] == row.cells[1]),
+            "mse",
         ].values[0]
         return mse_value
 
     def gate(self, budget0, budget, some, file_name):
-
         self.mse_data = pd.read_csv(f"data/{file_name}_mse.csv")
 
         rows = self.shuffle(self.rows)
@@ -76,7 +75,7 @@ class DATA:
         return lite
 
     def split(self, best, rest, lite, dark):
-        max_score = float('-inf')
+        max_score = float("-inf")
 
         best_data = DATA(self.cols.names)
         for row in best:
