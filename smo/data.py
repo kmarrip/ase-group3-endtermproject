@@ -15,6 +15,7 @@ def runHyper(c, e, x_train, x_test, y_train, y_test):
     predicted = regressor.predict(x_test)
     return mean_absolute_error(y_test, predicted)
 
+
 class DATA:
     def __init__(self, src, fun=None):
         self.rows = []
@@ -64,16 +65,18 @@ class DATA:
         c = row.cells[0]
         e = row.cells[1]
 
-        x_train, x_test, y_train, y_test = train_test_split(self.x, self.y, test_size=0.2)
-        mse = runHyper(c,e,x_train,x_test,y_train,y_test)
+        x_train, x_test, y_train, y_test = train_test_split(
+            self.x, self.y, test_size=0.2
+        )
+        mse = runHyper(c, e, x_train, x_test, y_train, y_test)
         row.cells[2] = mse
-        return mse 
+        return mse
 
-    def gate(self, budget0, budget, some, data1,x,y):
-        self.mse_data  = data1
+    def gate(self, budget0, budget, some, data1, x, y):
+        self.mse_data = data1
         self.x = x
         self.y = y
-        #self.mse_data = pd.read_csv(f"data/{file_name}_mse.csv")
+        # self.mse_data = pd.read_csv(f"data/{file_name}_mse.csv")
         rows = self.shuffle(self.rows)
         print(len(rows))
         lite = rows[:budget0]
