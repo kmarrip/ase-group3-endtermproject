@@ -7,6 +7,7 @@ import pandas as pd
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 from config import the
+import time 
 
 def main():
     for action, _ in egs.items():
@@ -17,18 +18,27 @@ def main():
             global Seed
             Seed = the['seed']
 
-def smoFile(fileName:str,n:int =3 ):
+def smoFile(n,fileName):
+    start = time.time()
     main()
-    fileName = '../data/SS-A.csv'
-    n =  3
     paramsX = pd.DataFrame()
-    paramsX['c'] = list(range(1,100))
-    paramsX['e'] = list(range(1,100))
+    paramsX['c'] = ''
+    paramsX['e'] = ''
+    cValue = []
+    eValue = []
+    for c in range(1,101):
+        for e in range(1,101):
+            cValue.append(c)
+            eValue.append(e)
+    paramsX['c'] = cValue
+    paramsX['e'] = eValue
+
     paramsX['mse'] = ''
     paramsX.to_csv('params.csv',index=False)
     paramsX = DATA('./params.csv')
     os.remove('params.csv')
     data1 = pd.read_csv(fileName)
+    #data1 = DATA
     print(data1.shape)
 
     x = data1.iloc[:,:n] 
@@ -55,12 +65,12 @@ def smoFile(fileName:str,n:int =3 ):
     data1['d2h'] = data1.apply(calDistance,axis=1)
 
     data1 = data1.drop(columns=columns_to_drop)
-    iters = 20
+    iters = 1
     the['k'] = 1
     the['m'] = 2 
     for _ in range(iters):
-        lite = paramsX.gate(25,25, 0.5, data1,x,data1['d2h'])
-        print(data1.shape)
+        start = time.time()
+        lite = paramsX.gate(50,20, 0.5, data1,x,data1['d2h'])
         X, y = [], []
         lite.pop()
         for row in lite:
@@ -75,5 +85,20 @@ def smoFile(fileName:str,n:int =3 ):
         param['e'] = list(range(1,100))
 
         param['mse']= lr.predict(param)
-        print(param)
-        print(param['mse'].min())
+        print(param[param['mse'] == param['mse'].min() ])
+    
+    end = time.time()
+    print(f"{fileName} took {end - start}")
+
+smoFile(3, "../data/SS-C.csv")
+smoFile(4, "../data/SS-H.csv")
+smoFile(5, "../data/auto93.csv")
+smoFile(9, "../data/pom3a.csv")
+smoFile(10, "../data/wine.csv")
+smoFile(3, "../data/SS-A.csv")
+smoFile(10, "../data/dtlz2.csv")
+smoFile(10, "../data/dtlz3.csv")
+smoFile(10, "../data/dtlz4.csv")
+smoFile(10, "../data/dtlz5.csv")
+smoFile(10, "../data/dtlz6.csv")
+smoFile(10, "../data/dtlz7.csv")
