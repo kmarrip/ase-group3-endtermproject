@@ -54,76 +54,57 @@ def runHyper(c, e, x_train, x_test, y_train, y_test):
     return mean_absolute_error(y_test, predicted)
 
 
+from pathlib import Path
+
 def run(filePath, n: int):
     df = pd.read_csv(filePath)
-    x = df.iloc[:, 0:n].values  # the first n are independent variables
-    y = df.iloc[:, n:]  # the last 2 are depended variables
-    # we need to calculate the distance to heaven for each of the rows
-    # and add to
-
+    x = df.iloc[:, 0:n].values
+    y = df.iloc[:, n:]
     y = getDistance2HeavenArray(y)
 
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
-    accuracyDF = pd.DataFrame()
-    accuracyDF["c"] = ""
-    accuracyDF["e"] = ""
-    accuracyDF["error"] = ""
-    best_c = ""
-    best_e = ""
-    least_mse = 1e10
-    start = time.time()
+    accuracyDF = pd.DataFrame(columns=["c", "e", "mse"])
+    best_c, best_e, least_mse = "", "", float('inf')
+
     for c in range(1, 100):
         for e in range(1, 100):
-            some_start = time.time()
-            print(f"hyper params are {c} and {e}")
-            currentMSE = runHyper(c, e, x_train, x_test, y_train, y_test)
-            if currentMSE < least_mse:
-                best_c = c
-                best_e = e
-                least_mse = currentMSE
+            mse = runHyper(c, e, x_train, x_test, y_train, y_test)
+            new_row = pd.DataFrame({"c": [c/1000], "e": [e/1000], "mse": [mse]})
+            accuracyDF = pd.concat([accuracyDF, new_row], ignore_index=True)
+            if mse < least_mse:
+                best_c, best_e, least_mse = c, e, mse
 
-            accuracyDF.loc[len(accuracyDF.index)] = [
-                c / 1000,
-                e / 1000,
-                runHyper(c, e, x_train, x_test, y_train, y_test),
-            ]
-            some_end = time.time()
-            print(f" iteration took {some_end - some_start}")
+    output_dir = Path("output")
+    output_dir.mkdir(exist_ok=True)
+    output_file = output_dir / f"{Path(filePath).stem}_results.csv"
+    accuracyDF.to_csv(output_file, index=False)
+    print(f"Results saved to {output_file}")
 
-    clear()
-    print(f"best MSE is {least_mse}, for c={best_c}, e={best_e}")
 
-    end = time.time()
-    print(f"{filePath} This took {end - start} time ")
+    # Plot the results
+    plot_results(accuracyDF, filePath)
 
-    print(accuracyDF.head(100))
-
+def plot_results(df, filePath):
     fig = plt.figure(figsize=(7, 7))
     ax = fig.add_subplot(projection="3d")
-    ax.scatter(accuracyDF["c"], accuracyDF["e"], accuracyDF["error"])
-    ax.set_xlabel("c")
-    ax.set_ylabel("e")
+    ax.scatter(df["c"], df["e"], df["mse"])
+    ax.set_xlabel("C values")
+    ax.set_ylabel("Epsilon values")
     ax.set_zlabel("MSE")
     ax.set_title(filePath)
-
     plt.show()
 
+# Example usage
+run(r"C:\Users\saivi\OneDrive\Desktop\ase-group3-endtermproject\data\auto93.csv", 5)
+run(r"C:\Users\saivi\OneDrive\Desktop\ase-group3-endtermproject\data\SS-C.csv", 3)
+run(r"C:\Users\saivi\OneDrive\Desktop\ase-group3-endtermproject\data\SS-H.csv", 4)
+run(r"C:\Users\saivi\OneDrive\Desktop\ase-group3-endtermproject\data\pom3a.csv", 9)
+run(r"C:\Users\saivi\OneDrive\Desktop\ase-group3-endtermproject\data\wine.csv", 10)
+run(r"C:\Users\saivi\OneDrive\Desktop\ase-group3-endtermproject\data\SS-A.csv", 3)
+run(r"C:\Users\saivi\OneDrive\Desktop\ase-group3-endtermproject\data\dtlz2.csv", 10)
+run(r"C:\Users\saivi\OneDrive\Desktop\ase-group3-endtermproject\data\dtlz3.csv", 10)
+run(r"C:\Users\saivi\OneDrive\Desktop\ase-group3-endtermproject\data\dtlz4.csv", 10)
+run(r"C:\Users\saivi\OneDrive\Desktop\ase-group3-endtermproject\data\dtlz5.csv", 10)
+run(r"C:\Users\saivi\OneDrive\Desktop\ase-group3-endtermproject\data\dtlz6.csv", 10)
+run(r"C:\Users\saivi\OneDrive\Desktop\ase-group3-endtermproject\data\dtlz7.csv", 10)
 
-# grid search
-run("../data/SS-C.csv", 3)
-run("../data/SS-H.csv", 4)
-run("../data/auto93.csv", 5)
-run("../data/pom3a.csv", 9)
-run("../data/wine.csv", 10)
-run("../data/SS-A.csv", 3)
-run("../data/dtlz2.csv", 10)
-run("../data/dtlz3.csv", 10)
-run("../data/dtlz4.csv", 10)
-run("../data/dtlz5.csv", 10)
-run("../data/dtlz6.csv", 10)
-run("../data/dtlz7.csv", 10)
-
-# random search
-space = dict()
-space["c"] = list(map(lambda x: x / 100, range(100)))
-space["epsilon"] = list(map(lambda x: x / 100, range(100)))
