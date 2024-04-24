@@ -20,6 +20,17 @@ def main():
             Seed = the["seed"]
 
 
+def calDistanceToHeaven(row, data1, col, n):
+    return (
+        sum(
+            row[col] ** 2
+            for column in data1.columns
+            if column.endswith("+") or column.endswith("-")
+        )
+        / n
+    )
+
+
 def smoFile(n, fileName):
     start = time.time()
     main()
@@ -57,26 +68,17 @@ def smoFile(n, fileName):
                 data1[col].max() - data1[col].min()
             )
             data1[col] = 0 - data1[col]
-    columns_to_drop = [
-        col for col in data1.columns if col.endswith("+") or col.endswith("-")
-    ]
+    colsDrop = []
+    for column in data1.columns:
+        if column.endswith("+") or column.endswith("-"):
+            colsDrop.append(column)
 
-    n = len(columns_to_drop)
+    n = len(colsDrop)
 
-    calDistance = lambda row: math.sqrt(
-        sum(
-            (
-                row[col] ** 2
-                for col in data1.columns
-                if col.endswith("+") or col.endswith("-")
-            )
-        )
-        / n
-    )
-    data1["d2h"] = data1.apply(calDistance, axis=1)
+    data1["d2h"] = data1.apply(calDistanceToHeaven, axis=1)
 
-    data1 = data1.drop(columns=columns_to_drop)
-    iters = 1
+    data1 = data1.drop(columns=colsDrop)
+    iters = 20
     the["k"] = 1
     the["m"] = 2
     for _ in range(iters):

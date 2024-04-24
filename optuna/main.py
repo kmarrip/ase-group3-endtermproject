@@ -9,17 +9,20 @@ from cols import COLS
 import math
 import os
 
+
 def clear():
     if os.name == "nt":
         os.system("cls")
     else:
         os.system("clear")
 
+
 def runHyper(c, e, x_train, x_test, y_train, y_test):
     regressor = svm.SVR(C=c, epsilon=e)
     regressor.fit(x_train, y_train)
     predicted = regressor.predict(x_test)
     return mean_absolute_error(y_test, predicted)
+
 
 def getDistance2HeavenArray(y):
     columns = y.columns.values
@@ -32,8 +35,12 @@ def getDistance2HeavenArray(y):
         col.values = col.getNormalValues()
         squared = [(col.heaven - x) ** 2 for x in col.values]
         col.values = squared
-    d2h = [sum([cols[c].values[i] for c in range(len(cols))]) for i in range(len(cols[0].values))]
+    d2h = [
+        sum([cols[c].values[i] for c in range(len(cols))])
+        for i in range(len(cols[0].values))
+    ]
     return list(map(lambda x: math.sqrt(x / len(cols)), d2h))
+
 
 def runOptuna(n: int, path: str, output_dir=Path("optuna_results"), iters=100):
     def objective(trial):
@@ -54,7 +61,7 @@ def runOptuna(n: int, path: str, output_dir=Path("optuna_results"), iters=100):
         "Trial": [trial.number for trial in study.trials],
         "MSE": [trial.value for trial in study.trials],
         "C": [trial.params["c"] for trial in study.trials],
-        "Epsilon": [trial.params["e"] for trial in study.trials]
+        "Epsilon": [trial.params["e"] for trial in study.trials],
     }
     results_df = pd.DataFrame(results)
     output_dir.mkdir(exist_ok=True, parents=True)
@@ -64,7 +71,6 @@ def runOptuna(n: int, path: str, output_dir=Path("optuna_results"), iters=100):
 
     best_trial = study.best_trial
     print(f"Best MSE: {best_trial.value} with params {best_trial.params}")
-
 
 
 runOptuna(3, "../data/SS-C.csv")

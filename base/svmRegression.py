@@ -56,6 +56,7 @@ def runHyper(c, e, x_train, x_test, y_train, y_test):
 
 from pathlib import Path
 
+
 def run(filePath, n: int):
     df = pd.read_csv(filePath)
     x = df.iloc[:, 0:n].values
@@ -64,12 +65,12 @@ def run(filePath, n: int):
 
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
     accuracyDF = pd.DataFrame(columns=["c", "e", "mse"])
-    best_c, best_e, least_mse = "", "", float('inf')
+    best_c, best_e, least_mse = "", "", float("inf")
 
     for c in range(1, 100):
         for e in range(1, 100):
             mse = runHyper(c, e, x_train, x_test, y_train, y_test)
-            new_row = pd.DataFrame({"c": [c/1000], "e": [e/1000], "mse": [mse]})
+            new_row = pd.DataFrame({"c": [c / 1000], "e": [e / 1000], "mse": [mse]})
             accuracyDF = pd.concat([accuracyDF, new_row], ignore_index=True)
             if mse < least_mse:
                 best_c, best_e, least_mse = c, e, mse
@@ -80,9 +81,9 @@ def run(filePath, n: int):
     accuracyDF.to_csv(output_file, index=False)
     print(f"Results saved to {output_file}")
 
-
     # Plot the results
     plot_results(accuracyDF, filePath)
+
 
 def plot_results(df, filePath):
     fig = plt.figure(figsize=(7, 7))
@@ -94,16 +95,17 @@ def plot_results(df, filePath):
     ax.set_title(filePath)
     plt.show()
 
+
 # Example usage
-run('../data/auto93.csv',5)
+run("../data/auto93.csv", 5)
 run("../data/SS-C.csv", 3)
-run('../data/SS-H.csv',4)
-run('../data/pom3a.csv',9)
-run('../data/wine.csv',10)
-run('../data/SS-A.csv',3)
-run('../data/dtlz2.csv',10)
-run('../data/dtlz3.csv',10)
-run('../data/dtlz4.csv',10)
-run('../data/dtlz5.csv',10)
-run('../data/dtlz6.csv',10)
-run('../data/dtlz7.csv',10)
+run("../data/SS-H.csv", 4)
+run("../data/pom3a.csv", 9)
+run("../data/wine.csv", 10)
+run("../data/SS-A.csv", 3)
+run("../data/dtlz2.csv", 10)
+run("../data/dtlz3.csv", 10)
+run("../data/dtlz4.csv", 10)
+run("../data/dtlz5.csv", 10)
+run("../data/dtlz6.csv", 10)
+run("../data/dtlz7.csv", 10)

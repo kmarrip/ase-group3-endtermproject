@@ -61,12 +61,12 @@ class DATA:
     def shuffle(self, items):
         return random.sample(items, len(items))
 
-    def get_mse_value(self, row):
+    def getMSE(self, row):
         c = row.cells[0]
         e = row.cells[1]
 
         x_train, x_test, y_train, y_test = train_test_split(
-            self.x, self.y, test_size=0.2
+            self.x, self.y, test_size=0.1
         )
         mse = runHyper(c, e, x_train, x_test, y_train, y_test)
         row.cells[2] = mse
@@ -83,8 +83,7 @@ class DATA:
         dark = rows[budget0:]
 
         for _ in range(budget):
-            print("processing")
-            lite.sort(key=lambda row: self.get_mse_value(row))
+            lite.sort(key=lambda row: self.getMSE(row))
             n = int(len(lite) ** some)
             best, rest = lite[:n], lite[n:]
             todo = self.split(best, rest, lite, dark)
@@ -95,17 +94,17 @@ class DATA:
         max_score = float("-inf")
         todo = 0
 
-        best_data = DATA(self.cols.names)
+        bestDATA = DATA(self.cols.names)
         for row in best:
-            best_data.add(row)
+            bestDATA.add(row)
 
-        rest_data = DATA(self.cols.names)
+        restDATA = DATA(self.cols.names)
         for row in rest:
-            rest_data.add(row)
+            restDATA.add(row)
 
         for i, row in enumerate(dark):
-            b = row.like(best_data, len(lite), 2)
-            r = row.like(rest_data, len(lite), 2)
+            b = row.like(bestDATA, len(lite), 2)
+            r = row.like(restDATA, len(lite), 2)
             score = abs(b + r) / (abs(b - r) + 1e-30)
             if score > max_score:
                 max_score, todo = score, i
