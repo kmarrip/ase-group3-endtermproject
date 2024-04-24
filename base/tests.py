@@ -1,11 +1,13 @@
 import pandas as pd
 from scipy import stats
 import numpy as np
+from num import NUM
+from sym import SYM
+from statistics import mode
 
 # Load data
-grid_results = pd.read_csv(r"C:\Users\saivi\OneDrive\Desktop\ase-group3-endtermproject\grid_search_output_results\wine_results_grid.csv")
-optuna_results = pd.read_csv(r"C:\Users\saivi\OneDrive\Desktop\ase-group3-endtermproject\optuna_results\wine_optuna_results.csv")
-
+grid_results = pd.read_csv("./grid_search_output_results/wine_results_grid.csv")
+optuna_results = pd.read_csv("./optuna_results\wine_optuna_results.csv")
 
 # Sample extraction assuming 'mse' column holds the results
 mse_grid = grid_results['mse']
@@ -43,3 +45,59 @@ else:
     # Cohen's d (not typically used with Kruskal-Wallis but showing as example)
     cohen_d = (np.mean(mse_grid) - np.mean(mse_optuna)) / np.sqrt((np.std(mse_grid) ** 2 + np.std(mse_optuna) ** 2) / 2)
     print(f"Cohen's d = {cohen_d}")
+
+def testNUMmid():
+    num = NUM()
+    toBeAdded = [2, 3, 4, 5, 6]
+    for nums in toBeAdded:
+        num.add(nums)
+
+    finalMean = 0
+
+    for val in toBeAdded:
+        finalMean += val
+    finalMean /= len(toBeAdded)
+    assert num.mid() == finalMean
+
+
+def testLow():
+    num = NUM()
+    toBeAdded = [1, 2, 3, 4, 99]
+    for val in toBeAdded:
+        num.add(val)
+    assert num.lo == min(toBeAdded)
+
+
+def testWithEmpty():
+    sym = SYM()
+    res = sym.div()
+    assert res == 0
+
+
+def testWithManyvalues():
+    sym = SYM()
+    sym.add("1")
+    sym.add("2")
+    sym.add("3")
+    res = sym.div()
+    assert res > 0
+
+def test_sym_mid():
+    sym = SYM()
+    vals = [1,1,1,1,1,1,1,199,99,9,99,99,9,99]
+    for val in vals:
+        sym.add(val)
+    mid = mode(vals)
+    assert sym.mid() == mid
+
+    sym = SYM()
+    vals = [22,2,2]
+    for val in vals:
+        sym.add(val)
+    mid = mode(vals)
+    assert sym.mid() == mid
+
+testNUMmid()
+testLow()
+testWithEmpty()
+testWithManyvalues()
