@@ -65,16 +65,18 @@ def runOptuna(n: int, path: str, output_dir=Path("optuna_results"), iters=100):
     best_trial = study.best_trial
     print(f"Best MSE: {best_trial.value} with params {best_trial.params}")
 
+
+
+runOptuna(3, "../data/SS-C.csv")
+runOptuna(4, "../data/SS-H.csv")
+runOptuna(5, "../data/auto93.csv")
+runOptuna(9, "../data/pom3a.csv")
+runOptuna(10, "../data/wine.csv")
+runOptuna(3, "../data/SS-A.csv")
+runOptuna(10, "../data/dtlz2.csv")
+runOptuna(10, "../data/dtlz3.csv")
+runOptuna(10, "../data/dtlz4.csv")
+runOptuna(10, "../data/dtlz5.csv")
+runOptuna(10, "../data/dtlz6.csv")
+runOptuna(10, "../data/dtlz7.csv")
 # Example usage for a single dataset
-runOptuna(5, r"C:\Users\saivi\OneDrive\Desktop\ase-group3-endtermproject\data\auto93.csv")
-runOptuna(3, r"C:\Users\saivi\OneDrive\Desktop\ase-group3-endtermproject\data\SS-C.csv")
-runOptuna(4, r"C:\Users\saivi\OneDrive\Desktop\ase-group3-endtermproject\data\SS-H.csv")
-runOptuna(9, r"C:\Users\saivi\OneDrive\Desktop\ase-group3-endtermproject\data\pom3a.csv")
-runOptuna(10, r"C:\Users\saivi\OneDrive\Desktop\ase-group3-endtermproject\data\wine.csv")
-runOptuna(3, r"C:\Users\saivi\OneDrive\Desktop\ase-group3-endtermproject\data\SS-A.csv")
-runOptuna(10, r"C:\Users\saivi\OneDrive\Desktop\ase-group3-endtermproject\data\dtlz2.csv")
-runOptuna(10, r"C:\Users\saivi\OneDrive\Desktop\ase-group3-endtermproject\data\dtlz3.csv")
-runOptuna(10, r"C:\Users\saivi\OneDrive\Desktop\ase-group3-endtermproject\data\dtlz4.csv")
-runOptuna(10, r"C:\Users\saivi\OneDrive\Desktop\ase-group3-endtermproject\data\dtlz5.csv")
-runOptuna(10, r"C:\Users\saivi\OneDrive\Desktop\ase-group3-endtermproject\data\dtlz6.csv")
-runOptuna(10, r"C:\Users\saivi\OneDrive\Desktop\ase-group3-endtermproject\data\dtlz7.csv")
